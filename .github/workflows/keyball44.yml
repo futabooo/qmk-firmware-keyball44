@@ -14,7 +14,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/qmk/qmk_cli:latest
+      image: ghcr.io/qmk/qmk_cli@sha256:2dc05fc9f32efebd6b05c2b8676ee548358bc7e151e9dbf4dac6b6eed4513b07
 
     steps:
     - name: Checkout source
@@ -27,7 +27,7 @@ jobs:
       run: ln -s $(pwd)/qmk_firmware/keyboards/keyball __qmk__/keyboards/keyball
 
     - name: Install missing python modules
-      run: /opt/uv/tools/qmk/bin/python3 -m pip install -r __qmk__/requirements.txt
+      run: /usr/bin/python3 -m pip install --break-system-packages -r __qmk__/requirements.txt
 
     - run: qmk compile -j 4 -kb keyball/keyball44 -km default
 
